@@ -3,6 +3,7 @@ package com.fitnessapp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 import java.time.LocalDateTime;
@@ -10,19 +11,25 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Table(name = "users")
+@Entity//esto índica a Jpa uqe request será una tabla en la base de datos
 @Data//annotation de lombox ayuda a la creacion de constructores getters y setters
 @NoArgsConstructor
-@Entity//esto indica a Jpa uqe user sera una tabla en la base de datos
-@Table(name = "users")
+@AllArgsConstructor
+@Builder
 public class User {
     //CAMPOS
     @Id//clave primaria
-    @GeneratedValue(strategy = GenerationType.UUID)//genera una UUID automaticamente
+    @GeneratedValue(strategy = GenerationType.UUID)//genera una UUID automáticamente
     private UUID id;
 
-    @Column(nullable = false, unique = true)//no puede ser nulo ni repetido
+    @Column(nullable = false, unique = true, length = 50)
+    private String username;
+
+    @Column(nullable = false, unique = true, length = 100)//no puede ser nulo ni repetido
     private String email;
 
+    //contrasena eccriptada nuca se guarda en texto plano
     @Column(nullable = false)//no puede ser nulo
     private String passwordHash;
 
@@ -30,15 +37,29 @@ public class User {
     private Double weightKg;
     private Double bodyFatPct;
 
-    //si bien  es cierto se puede crear la tabla en la base de datos se hara uso de jpa para crearla
-    @ManyToMany(fetch = FetchType.LAZY)//@ManyToMany relacion de muchos a muchos LAZY quiere decir no cargues algo hasta que yo lo pida explicitamente
-    @JoinTable(//tabla intermedia
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),//esta columna es la duenia de la relacion osea la controla
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();//se iso uso de un set para evitar duplicados
 
-    @CreationTimestamp//hibernate llena esto automaticamente al crear
+    //fecha de creación del usuario
+    @CreationTimestamp//hibérnate establece automáticamente al crear
     private LocalDateTime createdAt;
+
+    //fecha de última actualización
+    @UpdateTimestamp//Se actualiza automáticamente en cada cambio
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @OneToOne//request es el dueño de esta relación
+    @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "id")//@JoinColumn especifica la columna FK en la tabla users
+    private Role role;
+
+    //indicador de sí la cuenta está activa
+    @Column(name = "is_active")
+    private boolean isActive = true;
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
 }

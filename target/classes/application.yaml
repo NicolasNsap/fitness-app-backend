@@ -7,8 +7,8 @@ spring:
 
   datasource:
     url: jdbc:mysql://localhost:3306/fitness_db
-    username: ''
-    password: ''
+    username: dev
+    password: N1c0l45.,
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -18,3 +18,4 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
