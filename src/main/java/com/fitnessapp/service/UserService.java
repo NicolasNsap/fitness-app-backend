@@ -18,7 +18,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
- * Logica de negocio para operaciones de usuarios
+ * Lógica de negocio para operaciones de usuarios
  *
  * Responsabilidades
  * -Registro de nuevos usuarios

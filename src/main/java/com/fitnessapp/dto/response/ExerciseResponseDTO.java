@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 /**
  * ExerciseResponseDTO - Datos del ejercicio que ENVIAMOS al cliente
  * Incluye toda la información pública del ejercicio
@@ -19,9 +21,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ExerciseResponseDTO {
-    private Long id;
+    private UUID id;
     private String name;
-    private String description;
     private String muscleGroup;
     private String equipmentNeeded;
     private String difficultyLevel;

@@ -41,5 +41,5 @@ public class Exercise {
 
     //indica si el ejercicio está activo en el catálogo
     @Column(name = "is_active")
-    private boolean active = true;
+    private boolean isActive = true;
 }
