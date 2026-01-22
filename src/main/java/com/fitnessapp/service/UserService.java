@@ -4,6 +4,8 @@ import com.fitnessapp.dto.request.UserRequestDTO;
 import com.fitnessapp.dto.response.UserResponseDTO;
 import com.fitnessapp.entity.Role;
 import com.fitnessapp.entity.User;
+import com.fitnessapp.exception.DuplicateResourceException;
+import com.fitnessapp.exception.ResourceNotFoundException;
 import com.fitnessapp.mapper.UserMapper;
 import com.fitnessapp.repository.RoleRepository;
 import com.fitnessapp.repository.UserRepository;
@@ -61,15 +63,13 @@ public class UserService {
 
         //validación 1 username único
         if (userRepository.existsByUsername(request.getUsername())){//al método existsByUsername del userRepository verifica si el username ya existe
-            log.warn("Intento de registro con username existente: {}", request.getUsername());
-            throw new RuntimeException("El username ya existe");
+            throw new DuplicateResourceException("Usuario", "username", request.getUsername());
         }
 
         //validación 2 email único
         if (userRepository.existsByEmail(request.getEmail())){//al método existsByEmail del userRepository verifica si el email ya existe
             //si el email ya está registrado en la base de datos
-            log.warn("Intento de registro con email existente: {}", request.getEmail());// se le advierte que el email ya existe
-            throw new RuntimeException("El email ya esta en uso");//se lanza una exception en tiempo de ejecución
+            throw new DuplicateResourceException("Usuario", "email", request.getEmail());//se lanza una exception en tiempo de ejecución
         }
 
         //paso 1 convertir DTO a Entity (parcial)
@@ -83,7 +83,7 @@ public class UserService {
 
         //paso 3 asignar rol USER por defecto
         Role userRole = roleRepository.findByName("USER")
-                .orElseThrow(() -> new RuntimeException("Rol USER no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Role", "name", "USER"));
         user.setRole(userRole);//se le asigna un rol al registro que por defecto hasta momento será USER
 
         //paso 4 guardar en BD
@@ -105,7 +105,7 @@ public class UserService {
         log.info("Buscando usuario con ID: {}", id);
 
         User user = userRepository.findById(id)//a la entidad user se le almacena el id encontrando en la base de datos
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));//sino encuentra el id, lanza una excepción
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario" + id));//sino encuentra el id, lanza una excepción
 
         //el metodo toResponseDTO de la clase userMapper se le pasa como parámetro el user que se encontró con ese ID para ser mostrado al usuario como respuesta
         return userMapper.toResponseDTO(user);
@@ -123,7 +123,7 @@ public class UserService {
         log.info("Buscando usuario: {}", username);
 
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + username));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario", "username", username));
 
         return userMapper.toResponseDTO(user);
     }
@@ -159,7 +159,7 @@ public class UserService {
         log.info("Actualizando usuario con ID: {}", id);
 
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario" + id));
 
         //actualizar solo campos permitidos (no username ni email por ahora)
 
@@ -185,7 +185,7 @@ public class UserService {
         log.info("Desactivando usuario con ID: {}", id);
 
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario" + id));
 
         user.setIsActive(false);
         userRepository.save(user);

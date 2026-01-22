@@ -3,6 +3,8 @@ package com.fitnessapp.service;
 import com.fitnessapp.dto.request.ExerciseRequestDTO;
 import com.fitnessapp.dto.response.ExerciseResponseDTO;
 import com.fitnessapp.entity.Exercise;
+import com.fitnessapp.exception.DuplicateResourceException;
+import com.fitnessapp.exception.ResourceNotFoundException;
 import com.fitnessapp.mapper.ExerciseMapper;
 import com.fitnessapp.repository.ExerciseRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,7 @@ public class ExerciseService {
     /**
      * Crear un nuevo ejercicio (solo ADMIN)
      *
-     * @param request DTO con datos del ejercicio
+     * @param exerciseRequestDTO DTO con datos del ejercicio
      * @return ResponseDTO del ejercicio creado
      * @throws RuntimeException si el nombre ya existe
      */
@@ -46,8 +48,7 @@ public class ExerciseService {
         //validar que no existe un ejercicio con ese nombre
         //se le setea el nombre al existsByName del repository para verificar si el nombre existe
         if (exerciseRepository.existsByName(exerciseRequestDTO.getName())){
-            log.warn("Intento de crear un ejercicio con nombre existente: {}", exerciseRequestDTO.getName());
-            throw new RuntimeException("Ya existe un ejercicio con el nombre: " + exerciseRequestDTO.getName());
+            throw new DuplicateResourceException("Ya existe un ejercicio con el nombre: " + exerciseRequestDTO.getName());
         }
 
         //convertir exerciseRequestDTO a Entity usando el mapper
@@ -75,7 +76,7 @@ public class ExerciseService {
 
         //si el ID es encontrado en la BD se almacena en la variable exercise sino se lanza una excepción
         Exercise exercise = exerciseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ejercicio no encontrado con ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Ejercicio" + id));
 
         //al método toResponseDTO de la clase exerciseMapper se le pasa la variable exercise que es donde se almaceno el ID
         return exerciseMapper.toResponseDTO(exercise);
@@ -127,7 +128,7 @@ public class ExerciseService {
         //se busca el ejercicio en la base de datos
         Exercise exercise = exerciseRepository.findById(id)
                 //sino se encuentra se lanza una excepción
-                .orElseThrow(() -> new RuntimeException("Ejercicio no encontrado con ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Ejercicio" + id));
 
         //se actualizaran los campos usando el método updateEntityFromDTO del  exerciseMapper
         exerciseMapper.updateEntityFromDTO(exercise, exerciseRequestDTO);
@@ -147,7 +148,7 @@ public class ExerciseService {
         log.info("Desactivando ejercicio con ID: {}", id);
 
         Exercise exercise = exerciseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ejercicio no encontrado con el ID: "+ id));
+                .orElseThrow(() -> new ResourceNotFoundException("Ejercicio"+ id));
 
         exercise.setActive(false);
         exerciseRepository.save(exercise);
