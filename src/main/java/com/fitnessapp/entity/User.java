@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Table(name = "users")
 @Entity//esto índica a Jpa uqe request será una tabla en la base de datos
-@Data//annotation de lombox ayuda a la creacion de constructores getters y setters
+@Data//annotation de lombok ayuda a la creación de constructores getters y setters
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -29,13 +29,13 @@ public class User {
     @Column(nullable = false, unique = true, length = 100)//no puede ser nulo ni repetido
     private String email;
 
-    //contrasena eccriptada nuca se guarda en texto plano
+    //contraseña encriptada nuca se guarda en texto plano
     @Column(nullable = false)//no puede ser nulo
     private String passwordHash;
 
-    private Integer heightCm;//ser usara Integer no int para permitir null
-    private Double weightKg;
-    private Double bodyFatPct;
+//    private Integer heightCm;//ser usara Integer no int para permitir null
+//    private Double weightKg;
+//    private Double bodyFatPct;
 
 
     //fecha de creación del usuario

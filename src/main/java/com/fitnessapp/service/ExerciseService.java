@@ -148,7 +148,7 @@ public class ExerciseService {
         log.info("Desactivando ejercicio con ID: {}", id);
 
         Exercise exercise = exerciseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ejercicio"+ id));
+                .orElseThrow(() -> new ResourceNotFoundException("Ejercicio" + id));
 
         exercise.setActive(false);
         exerciseRepository.save(exercise);

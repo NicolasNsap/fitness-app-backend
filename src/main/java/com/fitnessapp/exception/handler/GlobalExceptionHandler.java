@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -71,5 +73,39 @@ public class GlobalExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)//este metodo se lanza cuando @Valid detecta que le objeto no cumple las validaciones del UserRequestDTO
+    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException exception, HttpServletRequest request) {
+        //MethodArgumentNotValidException internamente tiene exception.getBindingResult() res de la validacion y .getAllErrors() lista errores encontrados
+        log.warn("Validation error: {}", exception.getMessage());
+        //log.warn registra el error en los logs con nivel warn(advertencia) se usar warn ya que es un error del ciente no es critico si fuera del sevidor seria log.error
+
+        // Extraer errores de validación
+        Map<String, Object> validationErrors = new HashMap<>();//se crea un HashMap para guardar los errores en formato clave:valor
+        exception.getBindingResult().getAllErrors().forEach(error -> {//exception.getBindingResult().getAllErrors() obtiene todos los errores
+            //BindingResult contiene los resultados de la validacion, campos que fallaron y porque
+            //getAllErrors() retorna una lista de errores
+            //forEach itera los erroes
+            String fieldName = ((FieldError) error).getField();//aca con ((FieldError) error) se realiza un downcasting(conversion de tipos) para obterner el metodo getField()
+            //fieldName extrae nombre del campo
+            //((FieldError) error).getField() funcina porque en @Valid los errores siempre son FieldError(campos especificos) no GlobalError
+            String errorMessage = error.getDefaultMessage();
+            //errorMessage extrase mensaje de error
+            //getDefaultMessage retorna el mensaje obtenido en la anotacion de validacion @Valid
+            validationErrors.put(fieldName, errorMessage);
+            //el resultado obtenido se guarda en el HashMap creado
+        });
+
+        //construccion de la respuesta del error, lo que el cliente recibe si al momento de realizar la peticion comete algun error
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .status(HttpStatus.BAD_REQUEST.value())  //codigo de error en este caso 400
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())//mala recepcion "bad request"
+                .message("Error de validación en los datos enviados")
+                .path(request.getRequestURI())//url en este caso "/api/users/register"
+                .details(validationErrors)//detalles del error en la respuesta
+                .build();//objeto contruido
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }

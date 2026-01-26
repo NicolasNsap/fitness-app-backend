@@ -16,6 +16,7 @@ import java.util.UUID;
 @Repository
 public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
 
+    Optional<Exercise> findById(UUID id);
     /**
      * Busca un ejercicio por su nombre exacto
      * Genera: SELECT * FROM exercises WHERE name = ?
@@ -76,42 +77,4 @@ public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
             String difficultyLevel
     );
 
-    /**
-     * BÚSQUEDA AVANZADA: Encuentra ejercicios por término de búsqueda
-     *
-     * Busca en nombre, descripción y grupo muscular
-     * LIKE permite búsqueda parcial (ej: "press" encuentra "Press de Banca")
-     * LOWER() hace la búsqueda case-insensitive (mayús/minús da igual)
-     *
-     * @param searchTerm Término de búsqueda
-     * @return Lista de ejercicios que coincidan
-     */
-    @Query("SELECT e FROM Exercise e WHERE " +
-            "LOWER(e.name) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
-            "LOWER(e.description) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
-            "LOWER(e.muscleGroup) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
-    List<Exercise> searchExercises(@Param("searchTerm") String searchTerm);
-
-    /**
-     * FILTRADO MÚLTIPLE: Encuentra ejercicios con filtros opcionales
-     *
-     * Esta query es más compleja porque permite que los parámetros sean null
-     * Si son null, no los incluye en el filtro
-     *
-     * Ejemplo de uso:
-     * - muscleGroup="PECHO", difficultyLevel=null, equipmentNeeded=null
-     *   → Busca solo por grupo muscular
-     * - muscleGroup="PIERNAS", difficultyLevel="AVANZADO", equipmentNeeded="Barra"
-     *   → Busca por los 3 criterios
-     */
-    @Query("SELECT e FROM Exercise e WHERE " +
-            "(:muscleGroup IS NULL OR e.muscleGroup = :muscleGroup) AND " +
-            "(:difficultyLevel IS NULL OR e.difficultyLevel = :difficultyLevel) AND " +
-            "(:equipmentNeeded IS NULL OR e.equipmentNeeded = :equipmentNeeded) AND " +
-            "e.isActive = true")
-    List<Exercise> findByFilters(
-            @Param("muscleGroup") String muscleGroup,
-            @Param("difficultyLevel") String difficultyLevel,
-            @Param("equipmentNeeded") String equipmentNeeded
-    );
 }
