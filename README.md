@@ -1,47 +1,99 @@
-Fitness App Backend 🏋️‍♂️
+# 🏋️ Fitness App Backend 🏋️‍♂️
 
-Backend API de una aplicación de fitness diseñada con **enfoque API-first**, arquitectura limpia y pensada desde el inicio para ser consumida por **clientes web y móviles**.
+API REST para aplicación de seguimiento de entrenamientos en gimnasio.
 
-El objetivo del proyecto es construir un backend escalable y mantenible, priorizando el diseño del dominio y la correcta separación de responsabilidades.
+## 🚀 Tecnologías
 
+- **Java 21** (OpenJDK)
+- **Spring Boot 3.2.1**
+- **MySQL 8.0**
+- **Spring Data JPA** (Persistencia)
+- **Spring Security** (Autenticación - en desarrollo)
+- **BCrypt** (Cifrado de contraseñas)
+- **Lombok** (Reducción de boilerplate)
 
+## 📋 Endpoints Disponibles
 
-🎯 Propósito del proyecto
+### 👤 Usuarios (`/api/users`)
 
-Este proyecto busca resolver de forma ordenada y profesional:
+| Método | Endpoint | Descripción             | Status |
+|--------|----------|-------------------------|--------|
+| POST | `/register` | Registrar nuevo usuario | 201 Created |
+| GET | `/` | Listar usuarios activos | 200 OK |
+| GET | `/{id}` | Obtener usuario por ID  | 200 OK |
 
-- Gestión de usuarios y autenticación
-- Modelado de planes de entrenamiento y rutinas
-- Exposición de una API REST clara y versionada
-- Escalabilidad futura sin reescribir lógica de negocio
+### 💪 Ejercicios (`/api/exercises`)
 
-No es un CRUD de tutorial, sino un backend construido paso a paso, entendiendo cada decisión técnica.
+| Método | Endpoint | Descripción               | Status |
+|--------|----------|---------------------------|--------|
+| POST | `/register` | Registrar nuevo ejercicio | 201 Created |
+| GET | `/` | Listar ejercicios activos | 200 OK |
+| GET | `/{id}` | Obtener ejercicio por ID  | 200 OK |
 
+## 🗂️ Estructura del Proyecto
+```
+src/main/java/com/gymtracker/
+├── entity/          # Entidades JPA (User, Role, Exercise)
+├── repository/      # Repositorios Spring Data
+├── dto/             # DTOs Request/Response
+├── mapper/          # Conversión Entity ↔ DTO
+├── service/         # Lógica de negocio
+├── controller/      # Endpoints REST
+├── exception/       # Excepciones personalizadas
+│   └── handler/     # GlobalExceptionHandler
+└── config/          # Configuraciones (Security, etc.)
+```
 
- 🧠 Enfoque de diseño
+## ⚙️ Configuración
 
-El desarrollo se realiza siguiendo estos principios:
+### Requisitos previos:
+- Java 21+
+- MySQL 8.0+
+- Maven 3.8+
 
-- API-first: el backend no depende del frontend
-- Separación estricta de capas
-- DTOs explícitos para no exponer entidades
-- Lógica de negocio centralizada en servicios
-- Preparado para crecimiento progresivo (web + mobile)
+### Base de datos:
+```sql
+CREATE DATABASE fitness_db;
+```
 
+### Configurar `application.yml`:
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/fitness_db
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+```
 
+### Ejecutar:
+```bash
+mvn spring-boot:run
+```
 
- 🧱 Arquitectura
+## 📝 Estado del Proyecto
 
-Estructura base del proyecto:
+**Completado:**
+- ✅ Entidades y relaciones JPA
+- ✅ Repositories para consultas básicas
+- ✅ DTOs Request/Response
+- ✅ Exception Handling global
+- ✅ Validaciones con @Valid
+- ✅ Cifrado de contraseñas (BCrypt)
+- ✅ Endpoints básicos de usuarios y ejercicios
 
-src/main/java/
-com.yourcompany.fitnessapp
-├─ controller # Adaptadores HTTP (delgados)
-├─ service # Lógica de negocio
-├─ dto # Contratos de entrada/salida
-├─ entity # Modelo de dominio
-├─ repository # Acceso a datos (JPA)
-├─ mapper # Conversión Entity ↔ DTO
-├─ security # Autenticación y autorización
-├─ exception # Manejo centralizado de errores
-└─ config # Configuración general
+**En desarrollo:**
+- 🔄 Autenticación JWT
+- 🔄 Endpoints de rutinas y planes
+- 🔄 Testing unitario
+
+**Próximamente:**
+- ⏳ Documentación con Swagger
+- ⏳ Integración con frontend
+
+## 👨‍💻 Autor
+
+Nicolas Abarca
+
+## 📄 Licencia
+
+Este proyecto es de código abierto.
