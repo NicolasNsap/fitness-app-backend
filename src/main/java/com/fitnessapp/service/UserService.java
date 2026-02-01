@@ -165,7 +165,7 @@ public class UserService {
 
         //sí cambia la contraseña, encriptarla
         if(request.getPassword() != null && !request.getPassword().isEmpty()){
-            user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+            user.setPasswordHash(passwordEncoder.encode(request.getPassword()));//passwordEncoder inyecta automáticamente la instancia de Bcrypt
         }
 
         User updateUser = userRepository.save(user);

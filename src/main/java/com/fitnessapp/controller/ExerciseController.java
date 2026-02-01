@@ -19,6 +19,8 @@ import java.util.UUID;
  * Endpoint:
  * - GET /api/exercises → Listar todos los ejercicios activos
  * - GET /api/exercises → Listar todos los ejercicios activos
+ * - PUT /api/exercises/{id} -> actualizar datos de un ejercicio existente
+ * - DELETE /api/exercises/{id} -> desactivar ejercicio del catálogo
  */
 @RestController
 @RequestMapping("/api/exercises")
@@ -105,5 +107,75 @@ public class ExerciseController {
 
         // retornar respuesta con status 200 OK
         return ResponseEntity.ok(exercise);
+    }
+
+    /**
+     * Actualizar datos
+     * ENDPOINT: PUT /api/exercises/{id}
+     *
+     * - este ENDPOINT lo puede usar solo el admin
+     *
+     * Request Body (JSON):
+     * {
+     *   "name": "Press Banca",
+     *   "muscleGroup": "PECHO", ← Corregido
+     *   "equipmentNeeded": "Barra y banco",
+     *   "difficultyLevel": "INTERMEDIO",
+     *   "videoUrl": "https://youtube.com/..."
+     * }
+     * Response (200 OK):
+     * {
+     *   "id": "uuid-del-ejercicio",
+     *   "name": "Press Banca",
+     *   "muscleGroup": "PECHO",
+     *   "equipmentNeeded": "Barra y banco",
+     *   "difficultyLevel": "INTERMEDIO",
+     *   "mediaUrl": "https://youtube.com/...",
+     *   "isActive": true
+     * }
+     *
+     * @param id del ejercicio a actulizar
+     * @param exerciseRequestDTO nuevos datos del ejercicio
+     * @return Ejercicio actualizado con status 200
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<ExerciseResponseDTO> updateExercise(@PathVariable UUID id, @Valid @RequestBody ExerciseRequestDTO exerciseRequestDTO){
+        log.info("Petición para actualizar ejercicio con ID: {}", id);
+
+        //llamada al servicio
+        ExerciseResponseDTO updateExercise = exerciseService.updateExercise(id, exerciseRequestDTO);
+
+        log.info("Ejercicio actualizado exitosamente: {}", updateExercise.getName());
+
+        //se retorna respuesta con status 200 OK
+        return ResponseEntity.ok(updateExercise);
+    }
+
+    /**
+     * Desactivar ejercicio
+     * ENDPOINT: DELETE /api/exercises/{id}
+     *
+     * - Se guarda en la base de datos, pero en modo desactivado
+     * - no aparece en le catalogo público
+     * - el historial se mantiene intacto
+     * - si algún día la necesito se puede reactivar
+     *
+     * Response (204 No Content):
+     * - Sin body (el ejercicio fue desactivado exitosamente)
+     *
+     * @param id del ejercicio a desactivar
+     * @return ResponseEntity vacío con status 204
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteExercise(@PathVariable UUID id){
+        log.info("Petición para desactivar ejercicio con ID: {}", id);
+
+        //llamada el servicio
+        exerciseService.desactivateExercise(id);
+
+        log.info("Ejercicio con ID: {} desactivado exitosamente", id);
+
+        // Retornar 204 No Content
+        return ResponseEntity.noContent().build();
     }
 }

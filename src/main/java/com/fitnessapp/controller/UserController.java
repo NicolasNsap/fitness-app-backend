@@ -18,7 +18,11 @@ import java.util.UUID;
  * Maneja peticiones HTTP relacionadas con usuarios
  *
  * Endpoints:
- * -POST /api/users/register -> registrar nuevo usuario
+ * POST /api/users/register -> registrar usuario
+ * GET /api/users/ -> mostrar todos los usuarios
+ * GET /api/users/{id} -> mostrar usuario por su id
+ * PUT /api/users/{id} -> actualizar datos de usuario existente
+ * DELETE /api/users/{id} -> para este caso se desactivará un usuario(no borra físicamente
  */
 @RestController
 @RequestMapping("/api/users")
@@ -125,4 +129,77 @@ public class UserController {
         //retorna respuesta con status 200 ok
         return ResponseEntity.ok(userResponseDTO);//este es un atajo para return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    /**
+     * Actuallizar los datos de un usuario
+     * ENDPOINT: PUT /api/users/{id}
+     * Request Body (JSON):
+     * {
+     *   "username": "nicolas_updated" -> Nuevo username (opcional)
+     *   "email": "nuevo@email.com" -> Nuevo email (opcional)
+     *   "password": "nuevaPassword123" -> Nueva contraseña (opcional)
+     * }
+     * Response (200 OK):
+     * {
+     *   "id": "uuid-del-usuario",
+     *   "username": "nicolas_updated",
+     *   "email": "nuevo@email.com",
+     *   "roleName": "USER",
+     *   "isActive": true,
+     *   "updatedAt": "2025-02-01T15:30:00" -> Nota: fecha actualizada
+     * }
+     *
+     * @param id del usuario a actualizar
+     * @param userRequestDTO nuevos datos del usuario
+     * @return Usuario actualizado con status 200
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable UUID id, @Valid @RequestBody UserRequestDTO userRequestDTO){
+
+        log.info("Petición para actualizar usuario con ID: {}", id);
+
+        //llamar al servicio
+        UserResponseDTO updateUser = userService.updateUser(id, userRequestDTO);
+
+        log.info("Usuario actualizado exitosamente: {}", updateUser.getUsername());
+
+        //se retorna respuesta con status 200 ok
+        return ResponseEntity.ok(updateUser);
+    }
+
+    /**
+     * Desactivar un usuario
+     * DELETE /api/users/{id}
+     *
+     * porque desactivar (soft delete) envez de borrar
+     * - porque evita borrar datos por error
+     * - se mantiene el historial de quien existió
+     * - el usuario puede volver
+     * - si el usuario tiene entrenamientos registrados, borrar causaria errores en otras tablas
+     *
+     * Response (204 No Content):
+     * - No retorna body (el usuario fue desactivado, no hay nada que mostrar)
+     * - Status 204 significa "OK, lo hice, pero no tengo nada que devolverte"
+     *
+     * Alternativa común: Retornar 200 con mensaje
+     * { "message": "Usuario desactivado exitosamente" }
+     *
+     * @param id del usuario a desactivar
+     * @return ResponseEntity vacío con status 204
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id){
+        log.info("Petición para desactivar usuario con ID: {}", id);
+
+        //llamar al servicio
+        userService.desactivateUser(id);
+
+        log.info("Usuario con ID: {} desactivado exitosamente", id);
+
+        // Retornar 204 No Content
+        // .noContent() = status 204
+        // .build() = construye la respuesta sin body
+        return ResponseEntity.noContent().build();
+    }
+
 }

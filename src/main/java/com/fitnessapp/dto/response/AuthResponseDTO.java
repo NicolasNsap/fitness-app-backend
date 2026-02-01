@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  * Respuesta después de un login exitoso
- * es como un pase de entrada que te dan despues de mostrar tu identificacion en la puerta
+ * es como un pase de entrada que te dan después de mostrar tu identificación en la puerta
  * - Token JWT (el "pase" para entrar a rutas protegidas)
  * - Tipo de token (siempre "Bearer")
  * - Información básica del usuario autenticado*/
