@@ -71,6 +71,55 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+        <!-- ════════════════════════════════════════════════════════ -->
+        <!-- AGREGA LAS 3 DEPENDENCIAS JWT AQUÍ                       -->
+        <!-- ════════════════════════════════════════════════════════ -->
+        <!--
+            jjwt-api: Define las INTERFACES para trabajar con JWT
+            Analogía: Es como el "manual de instrucciones" que dice
+            qué operaciones puedes hacer:
+            - Crear token
+            - Validar token
+            - Extraer información del token
+
+           Sin esto, Java no sabe qué es un JWT
+        -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.5</version>
+        </dependency>
+        <!--
+            jjwt-impl: La IMPLEMENTACIÓN real de las operaciones
+            Analogía: Es el "motor" que hace el trabajo pesado.
+            jjwt-api dice QUÉ hacer, jjwt-impl dice CÓMO hacerlo.
+            scope=runtime: Solo se necesita cuando la app está corriendo,
+            no cuando compilas. Es como decir "esta herramienta solo
+            la necesito cuando estoy trabajando, no cuando preparo el taller"
+        -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.5</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!--
+            jjwt-jackson: Permite convertir objetos Java ↔ JSON
+            Analogía: Es el "traductor" entre Java y JSON.
+
+            Recuerda que JWT usa JSON internamente:
+            - El Header es JSON: {"alg":"HS256","typ":"JWT"}
+            - El Payload es JSON: {"sub":"nicolas","role":"USER"}
+
+            Jackson convierte estos JSON a objetos Java y viceversa.
+       -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.12.5</version>
+            <scope>runtime</scope>
+        </dependency>
 	</dependencies>
 
 	<build>

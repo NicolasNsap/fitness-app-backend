@@ -40,6 +40,7 @@ public class Exercise {
     private String videoUrl;
 
     //indica si el ejercicio está activo en el catálogo
+    @Builder.Default
     @Column(name = "is_active")
     private boolean isActive = true;
 

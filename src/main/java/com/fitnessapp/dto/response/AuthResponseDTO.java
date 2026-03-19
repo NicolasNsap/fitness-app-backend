@@ -33,6 +33,7 @@ public class AuthResponseDTO {
      * El cliente debe enviar en el header:
      * Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
      */
+    @Builder.Default
     private String type = "Bearer";
 
     /**

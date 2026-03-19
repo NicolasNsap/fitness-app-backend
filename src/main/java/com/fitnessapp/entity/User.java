@@ -52,6 +52,7 @@ public class User {
     private Role role;
 
     //indicador de sí la cuenta está activa
+    @Builder.Default
     @Column(name = "is_active")
     private boolean isActive = true;
 

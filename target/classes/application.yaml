@@ -6,7 +6,7 @@ spring:
     name: fitness-backend
 
   datasource:
-    url: ${DB_URL}
+    url: jdbc:mysql://localhost:3306/fitness_db
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -18,3 +18,16 @@ spring:
     properties:
       hibernate:
          format_sql: true
+
+# ═══════════════════════════════════════════════════════════════════════════
+#                         CONFIGURACIÓN JWT
+# ═══════════════════════════════════════════════════════════════════════════
+jwt:
+  # ⚠️ IMPORTANTE:
+  # - Mínimo 32 caracteres (256 bits para el algoritmo HS256)
+  # - NUNCA subir a GitHub
+  # - En producción usar variable de entorno: ${JWT_SECRET_KEY}
+  secret-key: ${JWT_SECRET_KEY}
+
+ # - 86400000 = 24 horas (balance entre seguridad y usabilidad) ✅
+  expiration: ${JWT_EXPIRATION}

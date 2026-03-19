@@ -8,3 +8,18 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+# ═══════════════════════════════════════════════════════════════════════════
+# ARCHIVOS SENSIBLES - NUNCA SUBIR
+# ═══════════════════════════════════════════════════════════════════════════
+.env
+*.env.local
+*.env.development
+*.env.production
+application-local.yml
+application-prod.yml
+
+# Archivos con secretos
+**/secrets/
+
+# Pero SÍ subir el ejemplo
+!.env.example
