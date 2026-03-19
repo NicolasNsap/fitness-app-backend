@@ -21,6 +21,7 @@
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/repository/ExerciseRepository.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/repository/RoleRepository.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/repository/UserRepository.java
+/home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/security/JwtAuthenticationFilter.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/security/JwtService.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/service/ExerciseService.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/service/UserService.java

@@ -30,6 +30,7 @@ com/fitnessapp/dto/request/ExerciseRequestDTO$ExerciseRequestDTOBuilder.class
 com/fitnessapp/entity/Role$RoleBuilder.class
 com/fitnessapp/repository/RoleRepository.class
 com/fitnessapp/dto/response/ExerciseResponseDTO.class
+com/fitnessapp/security/JwtAuthenticationFilter.class
 com/fitnessapp/dto/response/ErrorResponse$ErrorResponseBuilder.class
 com/fitnessapp/repository/UserRepository.class
 com/fitnessapp/exception/DuplicateResourceException.class
