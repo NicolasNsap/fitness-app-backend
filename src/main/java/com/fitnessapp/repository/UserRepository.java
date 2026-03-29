@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     /**
      * Busca un usuario por su username
-     * Genera: SELECT * FROM users WHERE username = ?
+     * Genera: SELECT * FROM users WHERE username =?
      */
     Optional<User> findByUsername(String username);
 
