@@ -5,6 +5,7 @@
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/controller/UserController.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/dto/request/ExerciseRequestDTO.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/dto/request/LoginRequestDTO.java
+/home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/dto/request/RegisterRequestDTO.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/dto/request/UserRequestDTO.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/dto/response/AuthResponseDTO.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/dto/response/ErrorResponse.java
@@ -13,6 +14,7 @@
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/entity/Exercise.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/entity/Role.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/entity/User.java
+/home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/exception/BadRequestException.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/exception/DuplicateResourceException.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/exception/ResourceNotFoundException.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/exception/handler/GlobalExceptionHandler.java
@@ -23,5 +25,6 @@
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/repository/UserRepository.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/security/JwtAuthenticationFilter.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/security/JwtService.java
+/home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/service/AuthService.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/service/ExerciseService.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/service/UserService.java

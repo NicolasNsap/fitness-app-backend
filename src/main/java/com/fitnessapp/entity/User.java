@@ -54,13 +54,7 @@ public class User {
     //indicador de sí la cuenta está activa
     @Builder.Default
     @Column(name = "is_active")
-    public boolean isActive = true;
+    private boolean isActive = true;
 
-    public Boolean getIsActive() {
-        return isActive;
-    }
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
 }
