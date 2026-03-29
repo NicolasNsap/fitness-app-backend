@@ -50,7 +50,7 @@ public class UserMapper {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .roleName(user.getRole().getName())
-                .isActive(user.getIsActive())
+                .isActive(user.isActive())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .build();
