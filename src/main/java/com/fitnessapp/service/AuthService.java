@@ -122,7 +122,7 @@ public class AuthService {
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
         //verificar que el usuario esté activo
-        if (!user.getIsActive()) {
+        if (!user.isActive()) {
             throw new BadRequestException("La cuenta está desactivada");
         }
 

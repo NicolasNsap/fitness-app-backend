@@ -187,7 +187,7 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario" + id));
 
-        user.setIsActive(false);
+        user.setActive(false);
         userRepository.save(user);
 
         log.info("Usuario desactivado: {}", user.getUsername());
