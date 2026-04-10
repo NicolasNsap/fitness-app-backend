@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * JWT service es la fabrica de pasaportes digitales
  * se encarga de:
- * - generar tokens
+ * - crear tokens
  * - validar tokens
  * - entraer informacion de tokens
  *

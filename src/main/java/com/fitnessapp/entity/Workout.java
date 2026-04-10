@@ -31,7 +31,7 @@ public class Workout {
     private UUID id;
 
     /**
-     * usuario duenio de este workout
+     * Usuario duenio de este workout
      * relación: muchos workouts pertenecen a este usuario
      */
     @ManyToOne(fetch = FetchType.LAZY)

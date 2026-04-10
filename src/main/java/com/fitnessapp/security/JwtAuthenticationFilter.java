@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,7 +30,7 @@ import java.util.List;
  *
  * @author Nicolas Abarca
  */
-
+@Slf4j
 @Component//spring lo administra automáticamente
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     //OncePerRequestFilter quiere decir ejecutarse una vez por petición
@@ -62,11 +63,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         //validar el token y establecer autenticación
         try {
-            //validar que el token sea valido (firma correcta, no expirado)
-            if (jwtService.validateToken(token)){
-                //extraer información del token osea lee el payload del token y extrae los datos
-                String username = jwtService.extractUsername(token);
-                String role = jwtService.extractRole(token);
+            // extraer primero, así solo se abre el token una vez
+            String username = jwtService.extractUsername(token);
+            String role = jwtService.extractRole(token);
+            // validar con isTokenValid() que ya verifica firma + vencimiento + username
+            if (username != null && jwtService.isTokenValid(token, username)){
+
 
                 //verificar si ya hay autenticación
                 if (SecurityContextHolder.getContext().getAuthentication() == null){
@@ -78,15 +80,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     //agregar detalles de la petición como la dirección ip del cliente id de la sesion otros metadatos
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                    //establecer autenticación en el contexto, Guarda la autenticación en el **SecurityContext**.
-                    //ahora spring security sabe quien es el usuario
+                    //Establecer autenticación en el contexto, Guarda la autenticación en el **SecurityContext**.
+                    //Ahora spring security sabe quien es el usuario
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
         }catch (Exception e){
             //si hay error, no se autentica
             //la petición continua sin autenticación
-            System.out.println("Error procesando token: " + e.getMessage());
+            log.error("Error procesando token: {}", e.getMessage());
         }
 
         //continuar la cadena de filtros en este caso pasa al controller

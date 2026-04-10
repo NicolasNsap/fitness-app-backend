@@ -4,6 +4,8 @@ import com.fitnessapp.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -116,6 +118,18 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {//PasswordEncoder es una interfaz de SpringSecurity que define el contrato para encryptar contraseñas
         //la implementación que se usara es BCrypt, ya que tiene buen balance entre seguridad y rendimiento
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Este Bean es necesario para que la clase AuthService pueda verificar el usuario y contraseña en el login
+     * @param config
+     * @return
+     * @throws Exception
+     */
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
+        return config.getAuthenticationManager();
     }
 
 }
