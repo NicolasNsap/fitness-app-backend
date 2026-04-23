@@ -12,6 +12,7 @@ com/fitnessapp/mapper/ExerciseMapper.class
 com/fitnessapp/dto/request/UserRequestDTO.class
 com/fitnessapp/FitnessBackendApplication.class
 com/fitnessapp/entity/ExerciseSet$ExerciseSetBuilder.class
+com/fitnessapp/service/WorkoutService.class
 com/fitnessapp/entity/ExerciseSet.class
 com/fitnessapp/dto/response/ErrorResponse.class
 com/fitnessapp/exception/ResourceNotFoundException.class
@@ -23,6 +24,7 @@ com/fitnessapp/exception/handler/GlobalExceptionHandler.class
 com/fitnessapp/entity/Exercise$ExerciseBuilder.class
 com/fitnessapp/dto/request/CreateWorkoutExerciseRequestDTO$CreateWorkoutExerciseRequestDTOBuilder.class
 com/fitnessapp/entity/Workout.class
+com/fitnessapp/mapper/WorkoutMapper.class
 com/fitnessapp/dto/response/ErrorResponse$ErrorResponseBuilder.class
 com/fitnessapp/dto/request/CreateWorkoutExerciseRequestDTO.class
 com/fitnessapp/entity/WorkoutExercise.class

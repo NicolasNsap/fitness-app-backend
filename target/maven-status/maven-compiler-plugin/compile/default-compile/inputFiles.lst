@@ -31,6 +31,7 @@
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/exception/handler/GlobalExceptionHandler.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/mapper/ExerciseMapper.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/mapper/UserMapper.java
+/home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/mapper/WorkoutMapper.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/repository/ExerciseRepository.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/repository/ExerciseSetRepository.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/repository/RoleRepository.java
@@ -42,3 +43,4 @@
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/service/AuthService.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/service/ExerciseService.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/service/UserService.java
+/home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/service/WorkoutService.java
