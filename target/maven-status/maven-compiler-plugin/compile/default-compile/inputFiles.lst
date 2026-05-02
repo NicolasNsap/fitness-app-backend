@@ -4,6 +4,7 @@
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/controller/AuthController.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/controller/ExerciseController.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/controller/UserController.java
+/home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/controller/WorkoutController.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/dto/request/CreateSetRequestDTO.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/dto/request/CreateWorkoutExerciseRequestDTO.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/dto/request/CreateWorkoutRequestDTO.java

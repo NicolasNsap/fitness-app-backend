@@ -56,6 +56,7 @@ com/fitnessapp/controller/AuthController.class
 com/fitnessapp/dto/response/WorkoutExerciseResponseDTO.class
 com/fitnessapp/dto/request/UpdateWorkoutRequestDTO$UpdateWorkoutRequestDTOBuilder.class
 com/fitnessapp/dto/request/ExerciseRequestDTO$ExerciseRequestDTOBuilder.class
+com/fitnessapp/controller/WorkoutController.class
 com/fitnessapp/entity/Role$RoleBuilder.class
 com/fitnessapp/repository/RoleRepository.class
 com/fitnessapp/dto/response/ExerciseResponseDTO.class
