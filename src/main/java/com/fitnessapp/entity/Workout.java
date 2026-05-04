@@ -28,6 +28,8 @@ import java.util.UUID;
 @Table(name = "workouts")
 public class Workout {
 
+    @Id//clave primaria
+    @GeneratedValue(strategy = GenerationType.UUID)//genera una UUID automáticamente
     private UUID id;
 
     /**

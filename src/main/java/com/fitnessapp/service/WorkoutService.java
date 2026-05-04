@@ -12,6 +12,9 @@ import com.fitnessapp.mapper.WorkoutMapper;
 import com.fitnessapp.repository.ExerciseRepository;
 import com.fitnessapp.repository.UserRepository;
 import com.fitnessapp.repository.WorkoutRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -26,6 +29,10 @@ import java.util.UUID;
  * -crear - leer - actiualizar - eliminar workouts
  * -calcular estadisticas
  */
+
+@Service //marca esta clase como un servicio de spring
+@RequiredArgsConstructor //inyección por constructor
+@Slf4j //logger automático
 public class WorkoutService {
 
     private final WorkoutRepository workoutRepository;
@@ -33,12 +40,6 @@ public class WorkoutService {
     private final ExerciseRepository exerciseRepository;
     private final WorkoutMapper workoutMapper;
 
-    public WorkoutService(WorkoutRepository workoutRepository, UserRepository userRepository, ExerciseRepository exerciseRepository, WorkoutMapper workoutMapper){
-        this.workoutRepository = workoutRepository;
-        this.userRepository = userRepository;
-        this.exerciseRepository = exerciseRepository;
-        this.workoutMapper = workoutMapper;
-    }
 
     /**
      * CREAR WORKOUT(ENTRENAMIENTO)
@@ -86,6 +87,7 @@ public class WorkoutService {
      * @param exerciseDTO
      * @return
      */
+    @Transactional
     private WorkoutExercise createWorkoutExercise(CreateWorkoutExerciseRequestDTO exerciseDTO) {
         //buscar ejercicio del catalogo
         Exercise exercise = exerciseRepository.findById(exerciseDTO.getExerciseId()).orElseThrow(() -> new ResourceNotFoundException("Ejercicio no encontrado con ID: " + exerciseDTO.getExerciseId()));
@@ -112,6 +114,7 @@ public class WorkoutService {
      * @param setDTO
      * @return
      */
+    @Transactional
     private ExerciseSet createExerciseSet(CreateSetRequestDTO setDTO) {
         return ExerciseSet.builder()
                 .setNumber(setDTO.getSetNumber())//numero de set(serie)
