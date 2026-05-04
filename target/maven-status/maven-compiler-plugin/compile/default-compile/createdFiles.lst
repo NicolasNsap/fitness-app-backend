@@ -4,6 +4,7 @@ com/fitnessapp/dto/request/RegisterRequestDTO.class
 com/fitnessapp/service/ExerciseService.class
 com/fitnessapp/dto/response/UserResponseDTO.class
 com/fitnessapp/dto/request/LoginRequestDTO$LoginRequestDTOBuilder.class
+com/fitnessapp/config/SwaggerConfig.class
 com/fitnessapp/dto/request/CreateWorkoutRequestDTO$CreateWorkoutRequestDTOBuilder.class
 com/fitnessapp/security/JwtService.class
 com/fitnessapp/exception/BadRequestException.class

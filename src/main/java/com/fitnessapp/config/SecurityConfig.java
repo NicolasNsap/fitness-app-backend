@@ -50,6 +50,11 @@ public class SecurityConfig {
                         //rutas públicas, no requieren token
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        // Swagger - documentación pública
+                        .requestMatchers("/swagger-ui.html").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+
                         //RUTAS DE EXERCISES
 
                         //GET: cualquier usuario autenticado puede ver ejercicios

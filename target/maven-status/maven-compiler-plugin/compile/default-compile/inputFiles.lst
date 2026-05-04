@@ -1,6 +1,7 @@
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/FitnessBackendApplication.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/config/DataInitializer.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/config/SecurityConfig.java
+/home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/config/SwaggerConfig.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/controller/AuthController.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/controller/ExerciseController.java
 /home/nsap-arch/Documents/proyects/fitness-app-backend/src/main/java/com/fitnessapp/controller/UserController.java
