@@ -73,25 +73,6 @@ public class ExerciseController {
      *
      * Ejemplo: GET /api/exercises/1
      *
-     * Response (200 OK):
-     * {
-     *   "id": 1,
-     *   "name": "Sentadilla",
-     *   "description": "Ejercicio compuesto para piernas...",
-     *   "muscleGroup": "PIERNAS",
-     *   "equipmentNeeded": "Barra",
-     *   "difficultyLevel": "INTERMEDIO",
-     *   "isActive": true
-     * }
-     *
-     * Response (404 Not Found) si no existe:
-     * {
-     *   "status": 404,
-     *   "error": "Not Found",
-     *   "message": "Ejercicio no encontrado con id: 999",
-     *   ...
-     * }
-     *
      * @param id  del ejercicio a buscar
      * @return ResponseEntity con ExerciseResponseDTO y status 200
      */
@@ -114,25 +95,6 @@ public class ExerciseController {
      * ENDPOINT: PUT /api/exercises/{id}
      *
      * - este ENDPOINT lo puede usar solo el admin
-     *
-     * Request Body (JSON):
-     * {
-     *   "name": "Press Banca",
-     *   "muscleGroup": "PECHO", ← Corregido
-     *   "equipmentNeeded": "Barra y banco",
-     *   "difficultyLevel": "INTERMEDIO",
-     *   "videoUrl": "https://youtube.com/..."
-     * }
-     * Response (200 OK):
-     * {
-     *   "id": "uuid-del-ejercicio",
-     *   "name": "Press Banca",
-     *   "muscleGroup": "PECHO",
-     *   "equipmentNeeded": "Barra y banco",
-     *   "difficultyLevel": "INTERMEDIO",
-     *   "mediaUrl": "https://youtube.com/...",
-     *   "isActive": true
-     * }
      *
      * @param id del ejercicio a actulizar
      * @param exerciseRequestDTO nuevos datos del ejercicio

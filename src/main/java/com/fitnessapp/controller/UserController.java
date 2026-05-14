@@ -35,26 +35,7 @@ public class UserController {
     /**
      * Registra un nuevo usuario en el sistema
      * Endpoint: POST /api/users/register
-     * Request Body (JSON):
-     * {
-     *   "username": "juan",
-     *   "email": "juan@example.com",
-     *   "password": "123456",
-     *   "firstName": "Juan",
-     *   "lastName": "Pérez"
-     * }
-     * Response (201 Created):
-     * {
-     *   "id": 1,
-     *   "username": "juan",
-     *   "email": "juan@example.com",
-     *   "firstName": "Juan",
-     *   "lastName": "Pérez",
-     *   "roleName": "USER",
-     *   "isActive": true,
-     *   "createdAt": "2025-01-16T18:00:00"
-     * }
-     *
+
      * @param userRequestDTO con los datos del nuevo usuario
      * @return ResponseEntity con UserResponseDTO y status 201
      */
@@ -74,9 +55,7 @@ public class UserController {
 
     /**
      * obtener todos los uauarios
-     *
      * el endpoint seria igual al al metodo de buscar usuario pr id solo  que mustra todo los usuarios
-     *
      */
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
@@ -91,28 +70,6 @@ public class UserController {
      * Obtener usuario por ID
      *
      * Endpoint: GET /api/users/{id}
-     * {
-     *  "id": 1,
-     *  "username": "juan",
-     *  "email": "juan@example.com",
-     *  "firstName": "Juan",
-     *  "lastName": "Pérez",
-     *  "roleName": "USER",
-     *  "isActive": true,
-     *  "createdAt": "2025-01-16T18:45:30"
-     * }
-     * Response (404 Not Found) si no existe:
-     * {
-     *   "status": 404,
-     *   "error": "Not Found",
-     *   "message": "Usuario no encontrado con id: 999",
-     *   "path": "/api/users/999",
-     *   "details": {
-     *     "resourceName": "Usuario",
-     *     "fieldName": "id",
-     *     "fieldValue": "999"
-     *   }
-     * }
      *
      * @param id del usuario que se busca
      * @return ResponseEntity con UserResponseDTO y status code 200
@@ -140,15 +97,6 @@ public class UserController {
      *   "password": "nuevaPassword123" -> Nueva contraseña (opcional)
      * }
      * Response (200 OK):
-     * {
-     *   "id": "uuid-del-usuario",
-     *   "username": "nicolas_updated",
-     *   "email": "nuevo@email.com",
-     *   "roleName": "USER",
-     *   "isActive": true,
-     *   "updatedAt": "2025-02-01T15:30:00" -> Nota: fecha actualizada
-     * }
-     *
      * @param id del usuario a actualizar
      * @param userRequestDTO nuevos datos del usuario
      * @return Usuario actualizado con status 200

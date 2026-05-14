@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  *  AUTH CONTROLLER - Endpoints de Autenticación
  *  Endpoints públicos (no requieren token):
  *  - POST /api/auth/register → Registrar nuevo usuario
- *  - POST /api/auth/login    → Iniciar sesión
+ *  - POST /api/auth/login → Iniciar sesión
  *
  *  @author Nicolas Abarca
  */
@@ -39,19 +39,9 @@ public class AuthController {
      *
      * Request Body:
      * {
-     *   "username": "nicolas",
-     *   "email": "nicolas@email.com",
-     *   "password": "123456"
-     * }
-     *
-     * Response (201 Created):
-     * {
-     *   "token": "eyJhbGciOiJIUzI1NiJ9...",
-     *   "type": "Bearer",
-     *   "userId": "uuid",
-     *   "username": "nicolas",
-     *   "email": "nicolas@email.com",
-     *   "roleName": "USER"
+     *   "username": "nombre",
+     *   "email": "tu_email@email.com",
+     *   "password": "tu password"
      * }
      */
     @PostMapping("/register")
@@ -68,18 +58,8 @@ public class AuthController {
      *
      * Request Body:
      * {
-     *   "identifier": "nicolas",  // puede ser username o email
-     *   "password": "123456"
-     * }
-     *
-     * Response (200 OK):
-     * {
-     *   "token": "eyJhbGciOiJIUzI1NiJ9...",
-     *   "type": "Bearer",
-     *   "userId": "uuid",
-     *   "username": "nicolas",
-     *   "email": "nicolas@email.com",
-     *   "roleName": "USER"
+     *   "identifier": "nicolas", puede ser username o email
+     *   "password": "password"
      * }
      */
     @PostMapping("/login")
