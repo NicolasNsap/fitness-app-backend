@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  
+  # BASE DE DATOS MYSQL
+  mysql:
+    image: mysql:8.0
+    container_name: fitness-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - fitness-network
+    #VERIFICAR QUE MYSQL ESTA LISTO
+    healthcheck:
+      #EJECUCION DE ESTE COMANDO PARA VERIFICAR SI MYSQL RESPONDE
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  
+  # APLICACIÓN SPRING BOO
+  app:
+    build: .
+    container_name: fitness-app
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_EXPIRATION: ${JWT_EXPIRATION}
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8080:8080"
+    networks:
+      - fitness-network
+    depends_on:
+      mysql:
+        #ESPERA A QUE INICIE Y ESTE LISTO
+        condition: service_healthy
+
+
+# RED
+networks:
+  fitness-network:
+    driver: bridge
+
+# VOLUMEN PARA PERSISTENCIA
+volumes:
+  mysql-data:
