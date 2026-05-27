@@ -1,18 +1,17 @@
 ![Deploy to AWS](https://github.com/NicolasNsap/fitness-app-backend/actions/workflows/deploy.yml/badge.svg)
 
-# 🏋️ Fitness App Backend
+# Fitness App Backend
 
-API REST para seguimiento de entrenamientos, desplegada en producción en AWS.
+API REST para seguimiento de entrenamientos. Desplegada en AWS con deploy automático.
 
-## 🌐 Demo en Vivo
+## Demo
 
-**🔗 API:** http://56.126.6.86:8080
-
-**📖 Swagger UI:** http://56.126.6.86:8080/swagger-ui.html
+- **API:** http://56.126.6.86:8080
+- **Swagger UI:** http://56.126.6.86:8080/swagger-ui.html
 
 ---
 
-## 🚀 Tecnologías
+## Stack
 
 | Categoría | Tecnología |
 |-----------|------------|
@@ -22,49 +21,52 @@ API REST para seguimiento de entrenamientos, desplegada en producción en AWS.
 | Base de datos | MySQL 8.0 |
 | ORM | Spring Data JPA / Hibernate |
 | Documentación | Swagger / OpenAPI 3.0 |
-| Deploy | AWS EC2 + RDS |
-| Otros | Lombok, BCrypt, Maven |
+| Contenedores | Docker + Docker Compose |
+| CI/CD | GitHub Actions |
+| Infraestructura | AWS EC2 + RDS |
 
 ---
 
-## 📋 Endpoints Disponibles
+## Endpoints
 
-### 🔐 Autenticación (`/api/auth`)
+### Autenticación (`/api/auth`)
 
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| POST | `/register` | Registrar usuario | No |
-| POST | `/login` | Iniciar sesión (retorna JWT) | No |
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| POST | `/register` | Registrar usuario |
+| POST | `/login` | Login (retorna JWT) |
 
-### 🏋️ Workouts (`/api/workouts`)
+### Workouts (`/api/workouts`)
 
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| POST | `/` | Crear nuevo workout | JWT |
-| GET | `/` | Listar mis workouts | JWT |
-| GET | `/{id}` | Obtener workout con ejercicios | JWT |
-| PATCH | `/{id}` | Actualizar workout | JWT |
-| DELETE | `/{id}` | Eliminar workout | JWT |
-| PATCH | `/{id}/complete` | Marcar como completado | JWT |
-| POST | `/{id}/exercises` | Agregar ejercicio al workout | JWT |
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| POST | `/` | Crear workout |
+| GET | `/` | Listar mis workouts |
+| GET | `/{id}` | Obtener workout con ejercicios |
+| PATCH | `/{id}` | Actualizar workout |
+| DELETE | `/{id}` | Eliminar workout |
+| PATCH | `/{id}/complete` | Marcar como completado |
+| POST | `/{id}/exercises` | Agregar ejercicio |
 
-### 💪 Ejercicios (`/api/exercises`)
+### Ejercicios (`/api/exercises`)
 
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/` | Listar ejercicios disponibles | JWT |
-| GET | `/{id}` | Obtener ejercicio por ID | JWT |
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/` | Listar ejercicios disponibles |
+| GET | `/{id}` | Obtener ejercicio por ID |
 
-### 👤 Usuarios (`/api/users`)
+### Usuarios (`/api/users`)
 
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/` | Listar usuarios | JWT |
-| GET | `/{id}` | Obtener usuario por ID | JWT |
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/` | Listar usuarios |
+| GET | `/{id}` | Obtener usuario por ID |
+
+Todos los endpoints excepto auth requieren JWT.
 
 ---
 
-## 🗂️ Arquitectura del Proyecto
+## Estructura del proyecto
 
 ```
 src/main/java/com/fitnessapp/
@@ -76,21 +78,15 @@ src/main/java/com/fitnessapp/
 ├── entity/              # Entidades JPA
 ├── exception/           # Excepciones personalizadas
 │   └── handler/         # GlobalExceptionHandler
-├── mapper/              # Conversión Entity ↔ DTO
+├── mapper/              # Conversión Entity - DTO
 ├── repository/          # Repositorios Spring Data
 ├── security/            # JWT Filter y Service
 └── service/             # Lógica de negocio
 ```
 
-**Patrones implementados:**
-- Arquitectura en capas (Controller → Service → Repository)
-- DTO Pattern (separación de entidades y transferencia)
-- Repository Pattern
-- Global Exception Handling
-
 ---
 
-## ⚙️ Configuración Local
+## Configuración local
 
 ### Requisitos
 
@@ -98,7 +94,7 @@ src/main/java/com/fitnessapp/
 - MySQL 8.0+
 - Maven 3.8+
 
-### 1. Clonar el repositorio
+### 1. Clonar
 
 ```bash
 git clone https://github.com/NicolasNsap/fitness-app-backend.git
@@ -111,9 +107,9 @@ cd fitness-app-backend
 CREATE DATABASE fitness_db;
 ```
 
-### 3. Configurar variables de entorno
+### 3. Variables de entorno
 
-Crear archivo `.env` en la raíz del proyecto:
+Crear archivo `.env` en la raíz:
 
 ```env
 DB_HOST=localhost
@@ -121,23 +117,23 @@ DB_PORT=3306
 DB_NAME=fitness_db
 DB_USERNAME=tu_usuario
 DB_PASSWORD=tu_password
-JWT_SECRET_KEY=tu_clave_secreta_de_64_caracteres
+JWT_SECRET_KEY=clave_secreta_64_caracteres
 JWT_EXPIRATION=86400000
 ```
 
-### 4. Ejecutar en modo desarrollo
+### 4. Ejecutar
 
 ```bash
 ./run-dev.sh
 ```
 
-O manualmente:
+O con Maven directo:
 
 ```bash
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-### 5. Acceder a Swagger UI
+### 5. Swagger
 
 ```
 http://localhost:8080/swagger-ui.html
@@ -145,95 +141,88 @@ http://localhost:8080/swagger-ui.html
 
 ---
 
-## 🚀 Deploy en Producción
+## Docker (desarrollo local)
 
-La aplicación está desplegada en AWS con la siguiente arquitectura:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         AWS Cloud                           │
-│  ┌─────────────────┐         ┌─────────────────────────┐    │
-│  │      EC2        │         │          RDS            │    │
-│  │  Ubuntu 22.04   │────────▶│      MySQL 8.4          │    │
-│  │  Spring Boot    │         │   (Base de datos)       │    │
-│  │  systemd        │         │                         │    │
-│  └─────────────────┘         └─────────────────────────┘    │
-└─────────────────────────────────────────────────────────────┘
+```bash
+docker compose up -d
 ```
 
-**Características del deploy:**
-- ✅ Servicio systemd con auto-restart
-- ✅ Base de datos separada en RDS
-- ✅ Perfiles Spring Boot (dev/prod)
-- ✅ Variables de entorno seguras
-- ✅ Security Groups configurados
+Esto levanta la app y MySQL en contenedores.
 
 ---
 
-## 📊 Estado del Proyecto
+## Deploy
 
-### ✅ Completado
+El deploy es automático. Al hacer push a `main`, GitHub Actions:
 
-- [x] Autenticación JWT (registro, login, tokens)
-- [x] CRUD completo de Workouts
-- [x] Gestión de ejercicios por workout
-- [x] Sets con peso, repeticiones y notas
-- [x] Arquitectura en capas
-- [x] Exception Handling global
-- [x] Validaciones con Bean Validation
-- [x] Documentación Swagger UI
-- [x] Deploy en AWS (EC2 + RDS)
-- [x] Servicio systemd
+1. Compila el proyecto
+2. Construye la imagen Docker
+3. La sube a Docker Hub
+4. Se conecta a EC2 por SSH
+5. Hace pull de la imagen y reinicia el contenedor
 
-### 🔄 En desarrollo
+### Arquitectura en AWS
 
-- [ ] Docker y Docker Compose
-- [ ] CI/CD con GitHub Actions
-- [ ] Tests unitarios (JUnit)
-
-### ⏳ Próximamente
-
-- [ ] Rutinas y programas de entrenamiento
-- [ ] Estadísticas y progreso
-- [ ] Frontend React Native
+```
+┌──────────────────────────────────────────────────┐
+│                    AWS                           │
+│  ┌─────────────────┐     ┌─────────────────┐     │
+│  │      EC2        │     │      RDS        │     │
+│  │  Docker         │────▶│   MySQL 8.4     │     │
+│  │  Docker Compose │     │                 │     │
+│  └─────────────────┘     └─────────────────┘     │
+└──────────────────────────────────────────────────┘
+```
 
 ---
 
-## 🔐 Autenticación
+## Estado del proyecto
 
-La API usa JWT (JSON Web Tokens). Para acceder a endpoints protegidos:
+**Completado:**
+- Autenticación JWT
+- CRUD de Workouts
+- Ejercicios y Sets
+- Validaciones
+- Swagger UI
+- Deploy en AWS
+- Docker + Docker Compose
+- CI/CD con GitHub Actions
 
-1. **Registrar usuario:**
+**Pendiente:**
+- Tests unitarios
+- Rutinas y programas
+- Estadísticas de progreso
+- Frontend React Native
+
+---
+
+## Uso de la API
+
+Registrar:
 ```bash
 curl -X POST http://56.126.6.86:8080/api/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"username":"tu_usuario","email":"tu@email.com","password":"tu_password"}'
+  -d '{"username":"usuario","email":"email@test.com","password":"password"}'
 ```
 
-2. **Login (obtener token):**
+Login:
 ```bash
 curl -X POST http://56.126.6.86:8080/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"tu_usuario","password":"tu_password"}'
+  -d '{"username":"usuario","password":"password"}'
 ```
 
-3. **Usar token en peticiones:**
+Usar el token:
 ```bash
 curl -X GET http://56.126.6.86:8080/api/workouts \
-  -H "Authorization: Bearer TU_TOKEN_JWT"
+  -H "Authorization: Bearer TU_TOKEN"
 ```
 
 ---
 
-## 👨‍💻 Autor
+## Autor
 
 **Nicolás Abarca**
 
-- LinkedIn: [linkedin.com/in/nicolás-abarca](https://www.linkedin.com/in/nicolás-abarca)
-- GitHub: [github.com/NicolasNsap](https://github.com/NicolasNsap)
-
----
-
-## 📄 Licencia
-
-Este proyecto es de código abierto bajo licencia MIT.
+- [LinkedIn](https://www.linkedin.com/in/nicolás-abarca)
+- [GitHub](https://github.com/NicolasNsap)
