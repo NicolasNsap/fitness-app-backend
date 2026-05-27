@@ -1,3 +1,5 @@
+![Deploy to AWS](https://github.com/NicolasNsap/fitness-app-backend/actions/workflows/deploy.yml/badge.svg)
+
 # 🏋️ Fitness App Backend
 
 API REST para seguimiento de entrenamientos, desplegada en producción en AWS.
