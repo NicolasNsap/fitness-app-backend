@@ -1,14 +1,14 @@
-name: Deploy to AWS
+name: Deploy to AWS #nombre del workflow
 
-on:
+on: #cuando se activa
   push:
     branches: [main]
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+jobs: #qué trabajos ejecutar
+  build-and-deploy: #nombre del trabajo
+    runs-on: ubuntu-latest #en que runner
 
-    steps:
+    steps: #pasos a ejecutar
       #1 Descargar el archivo
       - name: Checkout código
         uses: actions/checkout@v4

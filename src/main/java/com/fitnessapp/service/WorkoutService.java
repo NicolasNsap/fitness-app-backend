@@ -34,7 +34,7 @@ import java.util.UUID;
 @RequiredArgsConstructor //inyección por constructor
 @Slf4j //logger automático
 public class WorkoutService {
-
+    //DEPENDENCIAS
     private final WorkoutRepository workoutRepository;
     private final UserRepository userRepository;
     private final ExerciseRepository exerciseRepository;
