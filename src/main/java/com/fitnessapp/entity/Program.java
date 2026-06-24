@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Program - entidad para crecion de programas de entrenamiento(mesociclos)
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
