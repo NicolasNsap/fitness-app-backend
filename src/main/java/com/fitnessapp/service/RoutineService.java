@@ -137,6 +137,8 @@ public class RoutineService {
         if(!routine.getUser().getId().equals(userId)){
             throw new ResourceNotFoundException("Rutina no encontrada");
         }
+
+
         routineRepository.delete(routine);
 
     }

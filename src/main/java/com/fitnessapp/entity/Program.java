@@ -76,4 +76,9 @@ public class Program {
     @UpdateTimestamp
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
+
+    public void addProgramRoutine(ProgramRoutine programRoutine){
+        programRoutines.add(programRoutine);
+        programRoutine.setProgram(this);
+    }
 }
