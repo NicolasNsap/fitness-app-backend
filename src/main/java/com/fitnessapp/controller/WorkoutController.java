@@ -3,6 +3,7 @@ package com.fitnessapp.controller;
 import com.fitnessapp.dto.request.CreateWorkoutExerciseRequestDTO;
 import com.fitnessapp.dto.request.CreateWorkoutRequestDTO;
 import com.fitnessapp.dto.request.UpdateWorkoutRequestDTO;
+import com.fitnessapp.dto.response.ExerciseHistoryDTO;
 import com.fitnessapp.dto.response.WorkoutExerciseResponseDTO;
 import com.fitnessapp.dto.response.WorkoutResponseDTO;
 import com.fitnessapp.entity.User;
@@ -141,7 +142,13 @@ public class WorkoutController {
         return ResponseEntity.ok(responseDTO);
     }
 
-
+    /**
+     * AGREGAR EJERCICIO AL ENTRENAMIENTO
+     * @param id
+     * @param authentication
+     * @param requestDTO
+     * @return
+     */
     @PostMapping("/{id}/exercises")
     public ResponseEntity<WorkoutResponseDTO> addExerciseToWorkout(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody CreateWorkoutExerciseRequestDTO requestDTO) {
 
@@ -151,5 +158,19 @@ public class WorkoutController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
+
+    /**
+     * MOSTRAR EL HISTORIAL DE UN EJERCICIO
+     * @param exerciseId
+     * @param authentication
+     */
+    @GetMapping("/exercises/{exerciseId}/history")
+    public ResponseEntity<ExerciseHistoryDTO> getExerciseHistory(@PathVariable UUID exerciseId, Authentication authentication){
+        UUID userId = getUserIdFromAuth(authentication);
+
+        ExerciseHistoryDTO historyDTO = workoutService.getExerciseHistory(userId, exerciseId);
+        return ResponseEntity.ok(historyDTO);
+    }
+
 
 }

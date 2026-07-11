@@ -4,6 +4,8 @@ import com.fitnessapp.dto.request.CreateSetRequestDTO;
 import com.fitnessapp.dto.request.CreateWorkoutExerciseRequestDTO;
 import com.fitnessapp.dto.request.CreateWorkoutRequestDTO;
 import com.fitnessapp.dto.request.UpdateWorkoutRequestDTO;
+import com.fitnessapp.dto.response.ExerciseHistoryDTO;
+import com.fitnessapp.dto.response.ExerciseSessionDTO;
 import com.fitnessapp.dto.response.WorkoutExerciseResponseDTO;
 import com.fitnessapp.dto.response.WorkoutResponseDTO;
 import com.fitnessapp.entity.*;
@@ -11,6 +13,7 @@ import com.fitnessapp.exception.ResourceNotFoundException;
 import com.fitnessapp.mapper.WorkoutMapper;
 import com.fitnessapp.repository.ExerciseRepository;
 import com.fitnessapp.repository.UserRepository;
+import com.fitnessapp.repository.WorkoutExerciseRepository;
 import com.fitnessapp.repository.WorkoutRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +42,7 @@ public class WorkoutService {
     private final UserRepository userRepository;
     private final ExerciseRepository exerciseRepository;
     private final WorkoutMapper workoutMapper;
-
+    private final WorkoutExerciseRepository workoutExerciseRepository;
 
     /**
      * CREAR WORKOUT(ENTRENAMIENTO)
@@ -321,6 +324,46 @@ public class WorkoutService {
      */
     public long countCompletedWorkouts(UUID userId) {
         return workoutRepository.countByUserIdAndCompletedTrue(userId);
+    }
+
+    /**
+     * Historial para un ejercicio
+     * @param userId
+     * @param exerciseId
+     * @return
+     */
+    public ExerciseHistoryDTO getExerciseHistory(UUID userId, UUID exerciseId) {
+        //Buscar el ejercicio para obtener el nombre
+        Exercise exercise = exerciseRepository.findById(exerciseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ejercicio no encontrado"));
+
+        //Buscar todos los WorkoutExercise del usuario para ese ejercicio
+        List<WorkoutExercise> workoutExercises = workoutExerciseRepository
+                .findByWorkoutUserIdAndExerciseIdOrderByWorkoutDateDesc(userId, exerciseId);
+
+        // 3. Transformar cada uno a ExerciseSessionDTO
+        List<ExerciseSessionDTO> history = workoutExercises.stream()
+                .map(we -> {
+                    List<ExerciseSet> sets = we.getSets();
+                    return ExerciseSessionDTO.builder()
+                            .date(we.getWorkout().getDate())
+                            .totalSet(sets.size())
+                            .totalReps(sets.stream().mapToInt(ExerciseSet::getReps).sum())
+                            .maxWeight(sets.stream().mapToDouble(ExerciseSet::getWeight).max().orElse(0.0))
+                            .build();
+                })
+                .toList();
+
+        //Obtener última fecha (el primero de la lista, ya viene ordenado DESC)
+        LocalDate lastPerformed = history.isEmpty() ? null : history.get(0).getDate();
+
+        //Construir y retornar
+        return ExerciseHistoryDTO.builder()
+                .exerciseName(exercise.getName())
+                .exerciseId(exerciseId)
+                .lastPerformed(lastPerformed)
+                .history(history)
+                .build();
     }
 
 }

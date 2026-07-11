@@ -29,4 +29,12 @@ public interface WorkoutExerciseRepository extends JpaRepository<WorkoutExercise
      * Elimina todos los ejercicios de un workout
      */
     void deleteByWorkoutId(UUID workoutId);
+
+    /**
+     *
+     * @param userId
+     * @param exerciseId
+     * @return
+     */
+    List<WorkoutExercise> findByWorkoutUserIdAndExerciseIdOrderByWorkoutDateDesc(UUID userId, UUID exerciseId);
 }
