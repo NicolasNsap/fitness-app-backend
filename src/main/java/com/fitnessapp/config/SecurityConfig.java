@@ -12,6 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -135,6 +140,29 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
         return config.getAuthenticationManager();
+    }
+
+    /**
+     * crea una configuración de spring que spring usara para CORS
+     * @return
+     */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration configuration = new CorsConfiguration();
+        //significa que acepta peticiones de cualquier origen, para producción poner solo el dominio
+        configuration.setAllowedOrigins(List.of("*"));
+        //que métodos HTTP acepta, options es necesario porque el navegador lo envía antes de cada petición para preguntar permiso
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        //acepta cualquier header, incluyendo Authorization con el JWT
+        configuration.setAllowedHeaders(List.of("*"));
+        //permite que el frontend lea el header Authorization de las respuestas
+        configuration.setExposedHeaders(List.of("Authorization"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        //aplica esta configuración a todas las rutas
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+
     }
 
 }
