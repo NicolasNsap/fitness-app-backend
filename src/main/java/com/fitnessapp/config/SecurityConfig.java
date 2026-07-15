@@ -52,6 +52,7 @@ public class SecurityConfig {
 
                 //configurar reglas de autorizacion
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         //rutas públicas, no requieren token
                         .requestMatchers("/api/auth/**").permitAll()
 
