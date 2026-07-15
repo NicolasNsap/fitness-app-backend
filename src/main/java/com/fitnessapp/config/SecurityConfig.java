@@ -38,6 +38,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 //se deshabilita CSRF
                 //(Cross-Site Request Forgery) es una protección para app erb tradicionales con formularios
                 //con JWT no lo necesitamos, ya que no usamos cookies de sesión, el token viaja en el header, cada petición es independiente (stateless)
