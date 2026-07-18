@@ -47,7 +47,7 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToOne//request es el dueño de esta relación
+    @ManyToOne//request es el dueño de esta relación
     @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "id")//@JoinColumn especifica la columna FK en la tabla users
     private Role role;
 
