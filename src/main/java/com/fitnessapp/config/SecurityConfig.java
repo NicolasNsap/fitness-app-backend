@@ -57,6 +57,7 @@ public class SecurityConfig {
                         //rutas públicas, no requieren token
                         .requestMatchers("/api/auth/**").permitAll()
 
+
                         // Swagger - documentación pública
                         .requestMatchers("/swagger-ui.html").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
