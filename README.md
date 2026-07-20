@@ -1,13 +1,11 @@
-![Deploy to AWS](https://github.com/NicolasNsap/fitness-app-backend/actions/workflows/deploy.yml/badge.svg)
-
 # Fitness App Backend
 
-API REST para seguimiento de entrenamientos. Desplegada en AWS con deploy automático.
+API REST para seguimiento de entrenamientos. Desplegada en Railway.
 
 ## Demo
 
-- **API:** http://56.126.6.86:8080
-- **Swagger UI:** http://56.126.6.86:8080/swagger-ui.html
+- **API:** https://fitness-app-backend-production-f14c.up.railway.app
+- **Swagger UI:** https://fitness-app-backend-production-f14c.up.railway.app/swagger-ui.html
 
 ---
 
@@ -18,12 +16,11 @@ API REST para seguimiento de entrenamientos. Desplegada en AWS con deploy autom�
 | Lenguaje | Java 21 |
 | Framework | Spring Boot 3.5.9 |
 | Seguridad | Spring Security + JWT |
-| Base de datos | MySQL 8.0 |
+| Base de datos | MySQL 9.4 |
 | ORM | Spring Data JPA / Hibernate |
 | Documentación | Swagger / OpenAPI 3.0 |
-| Contenedores | Docker + Docker Compose |
-| CI/CD | GitHub Actions |
-| Infraestructura | AWS EC2 + RDS |
+| Contenedores | Docker |
+| Infraestructura | Railway |
 
 ---
 
@@ -68,21 +65,20 @@ Todos los endpoints excepto auth requieren JWT.
 
 ## Estructura del proyecto
 
-```
 src/main/java/com/fitnessapp/
-├── config/              # Configuraciones (Security, Swagger)
-├── controller/          # Endpoints REST
+├── config/ # Configuraciones (Security, Swagger)
+├── controller/ # Endpoints REST
 ├── dto/
-│   ├── request/         # DTOs de entrada
-│   └── response/        # DTOs de salida
-├── entity/              # Entidades JPA
-├── exception/           # Excepciones personalizadas
-│   └── handler/         # GlobalExceptionHandler
-├── mapper/              # Conversión Entity - DTO
-├── repository/          # Repositorios Spring Data
-├── security/            # JWT Filter y Service
-└── service/             # Lógica de negocio
-```
+│ ├── request/ # DTOs de entrada
+│ └── response/ # DTOs de salida
+├── entity/ # Entidades JPA
+├── exception/ # Excepciones personalizadas
+│ └── handler/ # GlobalExceptionHandler
+├── mapper/ # Conversión Entity - DTO
+├── repository/ # Repositorios Spring Data
+├── security/ # JWT Filter y Service
+└── service/ # Lógica de negocio
+
 
 ---
 
@@ -135,9 +131,8 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
 ### 5. Swagger
 
-```
 http://localhost:8080/swagger-ui.html
-```
+
 
 ---
 
@@ -153,26 +148,23 @@ Esto levanta la app y MySQL en contenedores.
 
 ## Deploy
 
-El deploy es automático. Al hacer push a `main`, GitHub Actions:
+El deploy es automático vía Railway. Al hacer push a `main`, Railway:
 
-1. Compila el proyecto
-2. Construye la imagen Docker
-3. La sube a Docker Hub
-4. Se conecta a EC2 por SSH
-5. Hace pull de la imagen y reinicia el contenedor
+1. Detecta cambios en el repositorio
+2. Construye la imagen desde el Dockerfile
+3. Despliega automáticamente
 
-### Arquitectura en AWS
+### Arquitectura en Railway
 
-```
 ┌──────────────────────────────────────────────────┐
-│                    AWS                           │
-│  ┌─────────────────┐     ┌─────────────────┐     │
-│  │      EC2        │     │      RDS        │     │
-│  │  Docker         │────▶│   MySQL 8.4     │     │
-│  │  Docker Compose │     │                 │     │
-│  └─────────────────┘     └─────────────────┘     │
+│ Railway │
+│ ┌─────────────────┐ ┌─────────────────┐ │
+│ │ Backend │ │ MySQL │ │
+│ │ (Docker) │────▶│ 9.4 │ │
+│ │ │ │ │ │
+│ └─────────────────┘ └─────────────────┘ │
 └──────────────────────────────────────────────────┘
-```
+
 
 ---
 
@@ -182,17 +174,16 @@ El deploy es automático. Al hacer push a `main`, GitHub Actions:
 - Autenticación JWT
 - CRUD de Workouts
 - Ejercicios y Sets
+- Rutinas y programas
 - Validaciones
 - Swagger UI
-- Deploy en AWS
-- Docker + Docker Compose
-- CI/CD con GitHub Actions
+- Deploy en Railway
+- Docker
+- Frontend React Native (básico)
 
 **Pendiente:**
 - Tests unitarios
-- Rutinas y programas
 - Estadísticas de progreso
-- Frontend React Native
 
 ---
 
@@ -200,21 +191,21 @@ El deploy es automático. Al hacer push a `main`, GitHub Actions:
 
 Registrar:
 ```bash
-curl -X POST http://56.126.6.86:8080/api/auth/register \
+curl -X POST https://fitness-app-backend-production-f14c.up.railway.app/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{"username":"usuario","email":"email@test.com","password":"password"}'
 ```
 
 Login:
 ```bash
-curl -X POST http://56.126.6.86:8080/api/auth/login \
+curl -X POST https://fitness-app-backend-production-f14c.up.railway.app/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"usuario","password":"password"}'
+  -d '{"usernameOrEmail":"usuario","password":"password"}'
 ```
 
 Usar el token:
 ```bash
-curl -X GET http://56.126.6.86:8080/api/workouts \
+curl -X GET https://fitness-app-backend-production-f14c.up.railway.app/api/workouts \
   -H "Authorization: Bearer TU_TOKEN"
 ```
 
@@ -226,3 +217,4 @@ curl -X GET http://56.126.6.86:8080/api/workouts \
 
 - [LinkedIn](https://www.linkedin.com/in/nicolás-abarca)
 - [GitHub](https://github.com/NicolasNsap)
+  EOF
