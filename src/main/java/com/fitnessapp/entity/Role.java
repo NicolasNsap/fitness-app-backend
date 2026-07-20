@@ -23,6 +23,4 @@ public class Role {
     @Column(unique = true, length = 20)
     private String name;
 
-    @OneToOne(mappedBy = "role")//no es el duenio de la relacion, dueno de la relaion es request
-    private User user;
 }
