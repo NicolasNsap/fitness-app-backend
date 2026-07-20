@@ -65,20 +65,21 @@ Todos los endpoints excepto auth requieren JWT.
 
 ## Estructura del proyecto
 
+```
 src/main/java/com/fitnessapp/
-├── config/ # Configuraciones (Security, Swagger)
-├── controller/ # Endpoints REST
+├── config/              # Configuraciones (Security, Swagger)
+├── controller/          # Endpoints REST
 ├── dto/
-│ ├── request/ # DTOs de entrada
-│ └── response/ # DTOs de salida
-├── entity/ # Entidades JPA
-├── exception/ # Excepciones personalizadas
-│ └── handler/ # GlobalExceptionHandler
-├── mapper/ # Conversión Entity - DTO
-├── repository/ # Repositorios Spring Data
-├── security/ # JWT Filter y Service
-└── service/ # Lógica de negocio
-
+│   ├── request/         # DTOs de entrada
+│   └── response/        # DTOs de salida
+├── entity/              # Entidades JPA
+├── exception/           # Excepciones personalizadas
+│   └── handler/         # GlobalExceptionHandler
+├── mapper/              # Conversión Entity - DTO
+├── repository/          # Repositorios Spring Data
+├── security/            # JWT Filter y Service
+└── service/             # Lógica de negocio
+```
 
 ---
 
@@ -131,8 +132,9 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
 ### 5. Swagger
 
+```
 http://localhost:8080/swagger-ui.html
-
+```
 
 ---
 
@@ -156,15 +158,16 @@ El deploy es automático vía Railway. Al hacer push a `main`, Railway:
 
 ### Arquitectura en Railway
 
+```
 ┌──────────────────────────────────────────────────┐
-│ Railway │
-│ ┌─────────────────┐ ┌─────────────────┐ │
-│ │ Backend │ │ MySQL │ │
-│ │ (Docker) │────▶│ 9.4 │ │
-│ │ │ │ │ │
-│ └─────────────────┘ └─────────────────┘ │
+│                  Railway                         │
+│  ┌─────────────────┐     ┌─────────────────┐     │
+│  │    Backend      │     │     MySQL       │     │
+│  │    (Docker)     │────▶│      9.4        │     │
+│  │                 │     │                 │     │
+│  └─────────────────┘     └─────────────────┘     │
 └──────────────────────────────────────────────────┘
-
+```
 
 ---
 
@@ -217,4 +220,3 @@ curl -X GET https://fitness-app-backend-production-f14c.up.railway.app/api/worko
 
 - [LinkedIn](https://www.linkedin.com/in/nicolás-abarca)
 - [GitHub](https://github.com/NicolasNsap)
-  EOF
