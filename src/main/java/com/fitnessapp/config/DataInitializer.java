@@ -2,6 +2,8 @@ package com.fitnessapp.config;
 //DataInitializer inicializa datos maestros en la base de datos
 
 import com.fitnessapp.entity.Role;
+import com.fitnessapp.entity.Exercise;
+import com.fitnessapp.repository.ExerciseRepository;
 import com.fitnessapp.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ public class DataInitializer implements CommandLineRunner {
 
     //inyección de dependencias por constructor
     private final RoleRepository roleRepository;
+    private final ExerciseRepository exerciseRepository;
 
 
     /*Método run() se ejecuta automáticamente al iniciar la app
@@ -29,6 +32,7 @@ public class DataInitializer implements CommandLineRunner {
         log.info("\uD83D\uDE80 Iniciando DataInitializer...");
 
         initializeRoles();
+        initializeExercises();
 
         log.info("✅ DataInitializer completado exitosamente");
 
@@ -65,6 +69,48 @@ public class DataInitializer implements CommandLineRunner {
         }else {
             log.info("ℹ️ Rol ADMIN ya existe, omitiendo creación");
 
+        }
+    }
+
+    private void initializeExercises() {
+        log.info("📋 Verificando ejercicios en la base de datos...");
+
+        if (exerciseRepository.count() == 0) {
+            log.info("🏋️ Creando ejercicios básicos...");
+
+            // Ejercicio 1: Sentadilla
+            Exercise sentadilla = Exercise.builder()
+                    .name("Sentadilla")
+                    .muscleGroup("PIERNAS")
+                    .equipmentNeeded("Barra")
+                    .difficultyLevel("INTERMEDIO")
+                    .isActive(true)
+                    .build();
+            exerciseRepository.save(sentadilla);
+
+            // Ejercicio 2: Press Banca
+            Exercise pressBanca = Exercise.builder()
+                    .name("Press Banca")
+                    .muscleGroup("PECHO")
+                    .equipmentNeeded("Barra y banco")
+                    .difficultyLevel("INTERMEDIO")
+                    .isActive(true)
+                    .build();
+            exerciseRepository.save(pressBanca);
+
+            // Ejercicio 3: Peso Muerto
+            Exercise pesoMuerto = Exercise.builder()
+                    .name("Peso Muerto")
+                    .muscleGroup("ESPALDA")
+                    .equipmentNeeded("Barra")
+                    .difficultyLevel("AVANZADO")
+                    .isActive(true)
+                    .build();
+            exerciseRepository.save(pesoMuerto);
+
+            log.info("✅ Ejercicios creados exitosamente");
+        } else {
+            log.info("ℹ️ Ejercicios ya existen, omitiendo creación");
         }
     }
 }
