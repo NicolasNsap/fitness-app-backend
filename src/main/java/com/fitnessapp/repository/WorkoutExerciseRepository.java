@@ -4,6 +4,7 @@ import com.fitnessapp.entity.WorkoutExercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface WorkoutExerciseRepository extends JpaRepository<WorkoutExercise, UUID> {
@@ -37,4 +38,9 @@ public interface WorkoutExerciseRepository extends JpaRepository<WorkoutExercise
      * @return
      */
     List<WorkoutExercise> findByWorkoutUserIdAndExerciseIdOrderByWorkoutDateDesc(UUID userId, UUID exerciseId);
+
+    /**
+     * Busca un ejercicio específico dentro de un workout
+     */
+    Optional<WorkoutExercise> findByWorkoutIdAndExerciseId(UUID workoutId, UUID exerciseId);
 }
