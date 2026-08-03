@@ -366,16 +366,16 @@ public class WorkoutService {
                 .build();
     }
 
-    public void removeExerciseFromWorkout(UUID workoutId, UUID exerciseId, UUID userId) {
+    public void removeExerciseFromWorkout(UUID workoutId, UUID workoutExerciseId, UUID userId) {
         //verificar que el workout existe y pertenece al usuario
-        Workout workout = workoutRepository.findById(workoutId).orElseThrow(() -> new ResourceNotFoundException("Workout no encontrado"));
+        Workout workout = workoutRepository.findById(workoutId).orElseThrow(() -> new ResourceNotFoundException("Ejercicio no encontrado"));
 
         if (!workout.getUser().getId().equals(userId)) {
             throw new ResourceNotFoundException("Workout no encontrado");
         }
 
         //buscar ejercicio dentro del workout
-        WorkoutExercise workoutExercise = workoutExerciseRepository.findByWorkoutIdAndExerciseId(workoutId, exerciseId).orElseThrow(() -> new ResourceNotFoundException("Ejercicio no encontrado"));
+        WorkoutExercise workoutExercise = workoutExerciseRepository.findById(workoutExerciseId).orElseThrow(() -> new ResourceNotFoundException("Ejercicio no encontrado"));
 
         //eliminar ejercicio
         workoutExerciseRepository.delete(workoutExercise);

@@ -175,13 +175,13 @@ public class WorkoutController {
     /**
      * ELIMINAR EJERCICIO DEL ENTRENAMIENTO
      * @param workoutId
-     * @param exerciseId
+     * @param workoutExerciseId
      * @param authentication
      */
-    @DeleteMapping("/{workoutId}/exercises/{exerciseId}")
-    public ResponseEntity<Void>  removeExerciseFromWorkout(@PathVariable UUID workoutId, @PathVariable UUID exerciseId, Authentication authentication){
+    @DeleteMapping("/{workoutId}/exercises/{workoutExerciseId}")
+    public ResponseEntity<Void>  removeExerciseFromWorkout(@PathVariable UUID workoutId, @PathVariable UUID workoutExerciseId, Authentication authentication){
         UUID userId = getUserIdFromAuth(authentication);
-        workoutService.removeExerciseFromWorkout(workoutId, exerciseId, userId);
+        workoutService.removeExerciseFromWorkout(workoutId, workoutExerciseId, userId);
 
         return ResponseEntity.noContent().build();
     }
