@@ -39,12 +39,15 @@ public class SetService {
         if (requestDTO.getReps() != null) {
             exerciseSet.setReps(requestDTO.getReps());
         }
+        if (requestDTO.getCompleted() != null){
+            exerciseSet.setCompleted(requestDTO.getCompleted());
+        }
 
         ExerciseSet updateSet = exerciseSetRepository.save(exerciseSet);
         return exerciseSetMapper.toSetResponseDTO(updateSet);
     }
 
-
+    //eliminar set
     public void deleteSet(UUID setId, UUID userId) {
         ExerciseSet exerciseSet = exerciseSetRepository.findById(setId).orElseThrow(() -> new ResourceNotFoundException("Set no encontrado"));
 

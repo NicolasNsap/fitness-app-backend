@@ -17,4 +17,6 @@ public class UpdateSetRequestDTO {
 
     @Min(value = 1, message = "Debe haber al menos 1 repetición")
     private Integer reps;
+
+    private Boolean completed;
 }
