@@ -50,6 +50,17 @@ public class SetController {
 
     }
 
+    /**
+     * METODO PARA ELIMINAR SET
+     */
+    @DeleteMapping("/{setId}")
+    public ResponseEntity<Void> deleteSet(@PathVariable UUID setId, Authentication authentication){
+        UUID userId = getUserIdFromAuth(authentication);
+        setService.deleteSet(setId, userId);
+
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 

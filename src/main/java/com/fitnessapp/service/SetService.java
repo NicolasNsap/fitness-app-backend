@@ -45,4 +45,13 @@ public class SetService {
     }
 
 
+    public void deleteSet(UUID setId, UUID userId) {
+        ExerciseSet exerciseSet = exerciseSetRepository.findById(setId).orElseThrow(() -> new ResourceNotFoundException("Set no encontrado"));
+
+        // Verificar que el set pertenece al usuario
+        if (!exerciseSet.getWorkoutExercise().getWorkout().getUser().getId().equals(userId)) {
+            throw new ResourceNotFoundException("set no encontrado");
+        }
+        exerciseSetRepository.delete(exerciseSet);
+    }
 }
