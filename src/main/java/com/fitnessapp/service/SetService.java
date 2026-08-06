@@ -42,6 +42,9 @@ public class SetService {
         if (requestDTO.getCompleted() != null){
             exerciseSet.setCompleted(requestDTO.getCompleted());
         }
+        if (requestDTO.getRestSeconds() != null) {
+            exerciseSet.setRestSeconds(requestDTO.getRestSeconds());
+        }
 
         ExerciseSet updateSet = exerciseSetRepository.save(exerciseSet);
         return exerciseSetMapper.toSetResponseDTO(updateSet);

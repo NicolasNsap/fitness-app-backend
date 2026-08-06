@@ -19,4 +19,5 @@ public class UpdateSetRequestDTO {
     private Integer reps;
 
     private Boolean completed;
+    private Integer restSeconds;
 }

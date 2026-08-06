@@ -13,6 +13,7 @@ public class ExerciseSetMapper {
                 .id(updateSet.getId())
                 .weight(updateSet.getWeight())
                 .reps(updateSet.getReps())
+                .restSeconds(updateSet.getRestSeconds())
                 .build();
 
 
