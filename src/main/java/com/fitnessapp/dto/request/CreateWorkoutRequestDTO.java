@@ -32,7 +32,7 @@ public class CreateWorkoutRequestDTO {
     /**
      * Duración en minutos (opcional, se puede agregar al finalizar)
      */
-    private Integer durationMinutes;
+    private Integer durationSeconds;
 
     /**
      * Notas del workout (opcional)

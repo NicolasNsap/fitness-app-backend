@@ -23,7 +23,7 @@ public class UpdateWorkoutRequestDTO {
 
     private LocalDate date;
 
-    private Integer durationMinutes;
+    private Integer durationSeconds;
 
     private String notes;
 

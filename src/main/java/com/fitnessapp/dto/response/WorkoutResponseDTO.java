@@ -23,7 +23,7 @@ public class WorkoutResponseDTO {
     private UUID id;
     private String name;
     private LocalDate date;
-    private Integer durationMinutes;
+    private Integer durationSeconds;
     private String notes;
     private Boolean completed;
     private LocalDateTime createdAt;

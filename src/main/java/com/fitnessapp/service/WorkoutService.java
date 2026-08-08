@@ -63,7 +63,7 @@ public class WorkoutService {
                 .user(user)//el usuario encontrado
                 .name(request.getName())//nombre del DTO ej:push day
                 .date(request.getDate())//fecha del DTO
-                .durationMinutes(request.getDurationMinutes())//duracion en minutos, puede ser null
+                .durationSeconds(request.getDurationSeconds())//duracion en minutos, puede ser null
                 .notes(request.getNotes())//notas opcionales
                 .build();//fianliza el builder y crea el objeto
 
@@ -218,8 +218,8 @@ public class WorkoutService {
         if (request.getDate() != null) {
             workout.setDate(request.getDate());
         }
-        if (request.getDurationMinutes() != null) {
-            workout.setDurationMinutes(request.getDurationMinutes());
+        if (request.getDurationSeconds() != null) {
+            workout.setDurationSeconds(request.getDurationSeconds());
         }
         if (request.getNotes() != null) {
             workout.setNotes(request.getNotes());
@@ -247,7 +247,7 @@ public class WorkoutService {
 
         workout.setCompleted(true);
         if (durationMinutes != null) {
-            workout.setDurationMinutes(durationMinutes);
+            workout.setDurationSeconds(durationMinutes);
         }
 
         // Marcar todos los sets como completados

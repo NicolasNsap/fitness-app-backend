@@ -57,8 +57,8 @@ public class Workout {
      * duracion total del workout(entrenamiento) en minutos
      * se calcula al finalizar o se ingresa manualmente
      */
-    @Column(name = "duration_minutes")
-    private Integer durationMinutes;
+    @Column(name = "duration_seconds")
+    private Integer durationSeconds;
 
     /**
      * notas opcionales del workout(entrenamiento

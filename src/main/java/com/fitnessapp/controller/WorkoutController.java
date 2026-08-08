@@ -129,15 +129,15 @@ public class WorkoutController {
      * CONFIRMAR ENTRENAMIENTO COMPLETO
      * @param id
      * @param authentication
-     * @param durationMinutes
+     * @param durationSeconds
      * @return
      */
     @PatchMapping("/{id}/complete")
-    public ResponseEntity<WorkoutResponseDTO> completeWorkout(@PathVariable UUID id, Authentication authentication, @RequestParam(required = false) Integer durationMinutes) {
+    public ResponseEntity<WorkoutResponseDTO> completeWorkout(@PathVariable UUID id, Authentication authentication, @RequestParam(required = false) Integer durationSeconds) {
 
         UUID userId = getUserIdFromAuth(authentication);
 
-        WorkoutResponseDTO responseDTO = workoutService.completeWorkout(id, userId, durationMinutes);
+        WorkoutResponseDTO responseDTO = workoutService.completeWorkout(id, userId, durationSeconds);
 
         return ResponseEntity.ok(responseDTO);
     }
