@@ -236,7 +236,7 @@ public class WorkoutService {
      * Marca un workout como completado
      */
     @Transactional
-    public WorkoutResponseDTO completeWorkout(UUID workoutId, UUID userId, Integer durationMinutes) {
+    public WorkoutResponseDTO completeWorkout(UUID workoutId, UUID userId, Integer durationSeconds) {
         Workout workout = workoutRepository.findById(workoutId)
                 .orElseThrow(() -> new ResourceNotFoundException("Workout no encontrado"));
 
@@ -246,8 +246,8 @@ public class WorkoutService {
         }
 
         workout.setCompleted(true);
-        if (durationMinutes != null) {
-            workout.setDurationSeconds(durationMinutes);
+        if (durationSeconds != null) {
+            workout.setDurationSeconds(durationSeconds);
         }
 
         // Marcar todos los sets como completados
