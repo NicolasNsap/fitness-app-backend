@@ -4,8 +4,8 @@ API REST para seguimiento de entrenamientos. Desplegada en Railway.
 
 ## Demo
 
-- **API:** https://fitness-app-backend-production-f14c.up.railway.app
-- **Swagger UI:** https://fitness-app-backend-production-f14c.up.railway.app/swagger-ui.html
+- **API:** https://fitness-app-backend-production-5506.up.railway.app
+- **Swagger UI:** https://fitness-app-backend-production-5506.up.railway.app/swagger-ui/index.html
 
 ---
 
