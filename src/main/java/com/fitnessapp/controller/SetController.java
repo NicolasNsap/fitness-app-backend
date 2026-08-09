@@ -1,5 +1,6 @@
 package com.fitnessapp.controller;
 
+import com.fitnessapp.dto.request.CreateSetRequestDTO;
 import com.fitnessapp.dto.request.UpdateSetRequestDTO;
 import com.fitnessapp.dto.response.SetResponseDTO;
 import com.fitnessapp.service.SetService;
@@ -35,6 +36,20 @@ public class SetController {
                 .getId();
 
     }
+
+    /**
+     * METODO PARA CREAR UN SET
+     *
+     */
+    @PostMapping("/workout-exercise/{workoutExerciseId}")
+    public ResponseEntity<SetResponseDTO> createSet(@PathVariable UUID workoutExerciseId, @Valid @RequestBody CreateSetRequestDTO requestDTO, Authentication authentication){
+        UUID userId = getUserIdFromAuth(authentication);
+
+        SetResponseDTO responseDTO = setService.createSet(workoutExerciseId, userId, requestDTO);
+
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
 
     /**
      * METODO PARA EDITAR SET

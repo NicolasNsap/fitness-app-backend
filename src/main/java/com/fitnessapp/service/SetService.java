@@ -1,11 +1,14 @@
 package com.fitnessapp.service;
 
+import com.fitnessapp.dto.request.CreateSetRequestDTO;
 import com.fitnessapp.dto.request.UpdateSetRequestDTO;
 import com.fitnessapp.dto.response.SetResponseDTO;
 import com.fitnessapp.entity.ExerciseSet;
+import com.fitnessapp.entity.WorkoutExercise;
 import com.fitnessapp.exception.ResourceNotFoundException;
 import com.fitnessapp.mapper.ExerciseSetMapper;
 import com.fitnessapp.repository.ExerciseSetRepository;
+import com.fitnessapp.repository.WorkoutExerciseRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +22,31 @@ import java.util.UUID;
 public class SetService {
     private final ExerciseSetRepository exerciseSetRepository;
     private final ExerciseSetMapper exerciseSetMapper;
+    private final WorkoutExerciseRepository workoutExerciseRepository;
 
 
 
+    //metodo para crear set
+    public SetResponseDTO createSet(UUID workoutExerciseId, UUID userId, CreateSetRequestDTO requestDTO) {
+        //buscar el workoutExercise
+        WorkoutExercise workoutExercise = workoutExerciseRepository.findById(workoutExerciseId).orElseThrow(() -> new ResourceNotFoundException("workoutExercise no encontrado"));
+        //verificar que pertenece al usuario
+        if (!workoutExercise.getWorkout().getUser().getId().equals(userId)) {
+            throw new ResourceNotFoundException("Ejercicio no encontrado");
+        }
+        //crear el exerciseSet
+        ExerciseSet exerciseSet = ExerciseSet.builder()
+                .workoutExercise(workoutExercise)
+                .setNumber(requestDTO.getSetNumber())
+                .weight(requestDTO.getWeight())
+                .reps(requestDTO.getReps())
+                .restSeconds(requestDTO.getRestSeconds())
+                .build();
+        //guardar
+        ExerciseSet saveExerciseSet = exerciseSetRepository.save(exerciseSet);
+        //retornar
+        return exerciseSetMapper.toSetResponseDTO(saveExerciseSet);
+    }
 
     public SetResponseDTO updateSet(UUID setId, UUID userId, @Valid UpdateSetRequestDTO requestDTO) {
 
