@@ -31,7 +31,7 @@ public class CreateSetRequestDTO {
     private Double weight;
 
     @NotNull(message = "Las repeticiones son obligatorias")
-    @Min(value = 1, message = "Debe haber al menos 1 repetición")
+    @Min(value = 0)
     private Integer reps;
 
     /**
