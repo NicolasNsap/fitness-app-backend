@@ -81,7 +81,7 @@ public class DataInitializer implements CommandLineRunner {
             // Ejercicio 1: Sentadilla
             Exercise sentadilla = Exercise.builder()
                     .name("Sentadilla")
-                    .muscleGroup("PIERNAS")
+                    .muscleGroup("piernas")
                     .equipmentNeeded("Barra")
                     .difficultyLevel("INTERMEDIO")
                     .isActive(true)
@@ -91,7 +91,7 @@ public class DataInitializer implements CommandLineRunner {
             // Ejercicio 2: Press Banca
             Exercise pressBanca = Exercise.builder()
                     .name("Press Banca")
-                    .muscleGroup("PECHO")
+                    .muscleGroup("pectorales")
                     .equipmentNeeded("Barra y banco")
                     .difficultyLevel("INTERMEDIO")
                     .isActive(true)
@@ -101,7 +101,7 @@ public class DataInitializer implements CommandLineRunner {
             // Ejercicio 3: Peso Muerto
             Exercise pesoMuerto = Exercise.builder()
                     .name("Peso Muerto")
-                    .muscleGroup("ESPALDA")
+                    .muscleGroup("espalda")
                     .equipmentNeeded("Barra")
                     .difficultyLevel("AVANZADO")
                     .isActive(true)
